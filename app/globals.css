@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-black;
+  min-height: 100vh;
+}
+
+.glow {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.glow-hover:hover {
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+}
+
+.mask-gradient {
+  mask-image: linear-gradient(white, transparent 50%);
+  -webkit-mask-image: linear-gradient(white, transparent 50%);
+}
