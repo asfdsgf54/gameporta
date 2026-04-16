@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 
 interface AnimatedButtonProps {
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   className?: string;
   type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;

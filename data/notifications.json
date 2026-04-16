@@ -1,0 +1,66 @@
+{
+  "notifications": {
+    "1776084055949": [
+      {
+        "id": "17761005848500.1036793251885264",
+        "type": "order",
+        "title": "🛒 Siparişiniz Alındı",
+        "message": "🧪 Test Ürünü — Otomasyon siparişiniz alındı. Teslimat bilgileri hazırlanıyor.",
+        "date": "2026-04-13T17:16:24.850Z",
+        "read": false
+      },
+      {
+        "id": "17760997481110.9615052060497788",
+        "type": "success",
+        "title": "✅ Siparişiniz Teslim Edildi!",
+        "message": "🧪 Test Ürünü — Otomasyon ürününüz teslim edildi. Bilgiler: ares ares",
+        "date": "2026-04-13T17:02:28.111Z",
+        "read": false
+      },
+      {
+        "id": "17760997391240.5125373367503707",
+        "type": "order",
+        "title": "🛒 Siparişiniz Alındı",
+        "message": "🧪 Test Ürünü — Otomasyon siparişiniz alındı. Teslimat bilgileri hazırlanıyor.",
+        "date": "2026-04-13T17:02:19.124Z",
+        "read": false
+      }
+    ],
+    "1776100651868": [
+      {
+        "id": "17761006518700.6363638342934455",
+        "type": "success",
+        "title": "🎮 Hoş Geldin, yısıfg!",
+        "message": "Game Shop ailesine katıldığın için teşekkürler! İlk alışverişinde %10 indirim için HOSGELDIN kodunu kullan.",
+        "date": "2026-04-13T17:17:31.870Z",
+        "read": false
+      }
+    ],
+    "1776156687363": [
+      {
+        "id": "17761593493430.7095307478016932",
+        "type": "success",
+        "title": "✅ Siparişiniz Teslim Edildi!",
+        "message": "🧪 Test Ürünü — Otomasyon ürününüz teslim edildi. Bilgiler: ares",
+        "date": "2026-04-14T09:35:49.344Z",
+        "read": false
+      },
+      {
+        "id": "17761593158300.4502047482342938",
+        "type": "order",
+        "title": "🛒 Siparişiniz Alındı",
+        "message": "🧪 Test Ürünü — Otomasyon siparişiniz alındı. Teslimat bilgileri hazırlanıyor.",
+        "date": "2026-04-14T09:35:15.830Z",
+        "read": false
+      },
+      {
+        "id": "17761593085590.26488011063064487",
+        "type": "success",
+        "title": "💰 Bakiye Yüklendi!",
+        "message": "Hesabınıza $500 bakiye yüklendi.",
+        "date": "2026-04-14T09:35:08.559Z",
+        "read": false
+      }
+    ]
+  }
+}

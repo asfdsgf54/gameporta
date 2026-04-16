@@ -16,22 +16,41 @@ export default function RegisterPage() {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
-    const result = registerUser(formData);
+    const result = await registerUser(formData);
     
     if (result.success) {
-      alert(result.message);
-      router.push('/login');
+      setIsRegistered(true);
     } else {
       setError(result.message);
       setLoading(false);
     }
   };
+
+  if (isRegistered) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-black to-blue-900 flex items-center justify-center p-4">
+        <div className="w-full max-w-md bg-zinc-900/80 backdrop-blur-xl border border-zinc-800 rounded-3xl p-10 text-center shadow-2xl">
+          <div className="w-24 h-24 bg-green-500/20 border border-green-500/50 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce">
+            <FaEnvelope className="text-4xl text-green-400" />
+          </div>
+          <h2 className="text-3xl font-bold text-white mb-4">Neredeyse Bitti!</h2>
+          <p className="text-gray-400 mb-8 leading-relaxed">
+            Hesabınız başarıyla oluşturuldu. Aktifleştirmek için <strong>{formData.email}</strong> adresine gönderdiğimiz onay e-postasındaki butona tıklamanız yeterlidir.
+          </p>
+          <AnimatedButton onClick={() => router.push('/login')} className="w-full py-4">
+            Giriş Sayfasına Git
+          </AnimatedButton>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-black to-blue-900 flex items-center justify-center p-4">

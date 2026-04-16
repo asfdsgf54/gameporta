@@ -35,53 +35,50 @@ export default function NotificationsPage() {
   const [filter, setFilter] = useState<'all' | 'unread'>('all');
 
   useEffect(() => {
-    const authenticated = isUserAuthenticated();
-    if (!authenticated) {
-      router.push('/login');
-      return;
-    }
-
-    const currentUser = getCurrentUser();
-    setUser(currentUser);
-    loadNotifications(currentUser?.id);
-    setLoading(false);
+    const init = async () => {
+      const authenticated = isUserAuthenticated();
+      if (!authenticated) { router.push('/login'); return; }
+      const currentUser = getCurrentUser();
+      setUser(currentUser);
+      if (currentUser?.id) await loadNotifications(currentUser.id);
+      setLoading(false);
+    };
+    init();
+    // Her 5 saniyede yenile (admin teslimat bildirimi için)
+    const interval = setInterval(() => {
+      const u = getCurrentUser();
+      if (u?.id) loadNotifications(u.id);
+    }, 5000);
+    return () => clearInterval(interval);
   }, [router]);
 
-  const loadNotifications = (userId: string) => {
-    // LocalStorage'dan bildirimleri yükle
+  const loadNotifications = async (userId: string) => {
+    // Önce API'den çek
+    try {
+      const res = await fetch(`/api/notifications?userId=${userId}`);
+      const text = await res.text();
+      if (text) {
+        const data = JSON.parse(text);
+        const apiNotifs = data.notifications || [];
+        if (apiNotifs.length > 0) {
+          // API'deki bildirimleri localStorage ile merge et
+          const local = JSON.parse(localStorage.getItem(`notifications_${userId}`) || '[]');
+          const localIds = new Set(local.map((n: any) => n.id));
+          const merged = [...apiNotifs.filter((n: any) => !localIds.has(n.id)), ...local];
+          // Okundu durumlarını koru
+          const readIds = new Set(local.filter((n: any) => n.read).map((n: any) => n.id));
+          const final = merged.map((n: any) => ({ ...n, read: readIds.has(n.id) ? true : n.read }));
+          setNotifications(final);
+          localStorage.setItem(`notifications_${userId}`, JSON.stringify(final));
+          return;
+        }
+      }
+    } catch {}
+
+    // Fallback: localStorage
     const stored = localStorage.getItem(`notifications_${userId}`);
     if (stored) {
-      setNotifications(JSON.parse(stored));
-    } else {
-      // Demo bildirimleri
-      const demoNotifications: Notification[] = [
-        {
-          id: '1',
-          type: 'success',
-          title: 'Hoş Geldiniz!',
-          message: 'Hesabınız başarıyla oluşturuldu. Alışverişe başlayabilirsiniz.',
-          date: new Date().toISOString(),
-          read: false
-        },
-        {
-          id: '2',
-          type: 'promo',
-          title: 'Özel İndirim!',
-          message: 'İlk alışverişinizde %20 indirim fırsatı! Kod: ILKALISVERIS',
-          date: new Date(Date.now() - 86400000).toISOString(),
-          read: false
-        },
-        {
-          id: '3',
-          type: 'info',
-          title: 'Yeni Ürünler Eklendi',
-          message: 'League of Legends kategorisinde yeni hesaplar eklendi. Hemen inceleyin!',
-          date: new Date(Date.now() - 172800000).toISOString(),
-          read: true
-        }
-      ];
-      setNotifications(demoNotifications);
-      localStorage.setItem(`notifications_${userId}`, JSON.stringify(demoNotifications));
+      try { setNotifications(JSON.parse(stored)); } catch {}
     }
   };
 

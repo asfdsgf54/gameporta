@@ -7,7 +7,7 @@ export const getProducts = (): Product[] => {
   return products ? JSON.parse(products) : [];
 };
 
-export const saveProduct = (product: Product): void => {
+export const saveProduct = async (product: Product): Promise<void> => {
   const products = getProducts();
   const existingIndex = products.findIndex(p => p.id === product.id);
   
@@ -18,11 +18,33 @@ export const saveProduct = (product: Product): void => {
   }
   
   localStorage.setItem('products', JSON.stringify(products));
+
+  // JSON dosyasına da kaydet
+  try {
+    await fetch('/api/products', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ products }),
+    });
+  } catch (error) {
+    console.log('JSON dosyasına yazılamadı');
+  }
 };
 
-export const deleteProduct = (id: string): void => {
+export const deleteProduct = async (id: string): Promise<void> => {
   const products = getProducts().filter(p => p.id !== id);
   localStorage.setItem('products', JSON.stringify(products));
+
+  // JSON dosyasına da kaydet
+  try {
+    await fetch('/api/products', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ products }),
+    });
+  } catch (error) {
+    console.log('JSON dosyasına yazılamadı');
+  }
 };
 
 export const getProductById = (id: string): Product | undefined => {

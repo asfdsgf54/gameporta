@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { Suspense, useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { 
   FaUser, 
   FaLock, 
@@ -9,17 +9,31 @@ import {
   FaInfoCircle,
   FaExclamationCircle
 } from 'react-icons/fa';
-import { userLogin } from '@/lib/auth';
+import { userLogin, getRegisteredUsers } from '@/lib/auth';
 import AnimatedButton from '@/components/AnimatedButton';
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [credentials, setCredentials] = useState({
     username: '',
     password: '',
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState(searchParams.get('error') === 'invalid_token' ? 'Geçersiz veya süresi dolmuş doğrulama linki.' : '');
+  const [success, setSuccess] = useState(searchParams.get('verified') === 'true' ? 'E-posta adresiniz başarıyla doğrulandı! Giriş yapabilirsiniz.' : '');
   const [loading, setLoading] = useState(false);
+
+  // Doğrulama durumunu local storage ile senkronize et
+  useEffect(() => {
+    if (searchParams.get('verified') === 'true') {
+      const email = searchParams.get('email'); // Eğer verify route'u email parametresini de dönüyorsa
+      
+      // JSON'dan güncel veriyi çekmek daha güvenli ama şimdilik local'i temizleyip 
+      // yeni girişte sunucu senkronizasyonu yapılmasını bekleyebiliriz.
+      // Basitlik için kayıtlı kullanıcılar listesini temizleyebiliriz ki bir sonraki login'de 
+      // (eğer implemente edilirse) güncel veriyi çeksin.
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,8 +84,15 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
               <div className="bg-red-500/10 border border-red-500/50 rounded-2xl p-4 text-red-400 text-sm flex items-center gap-3 animate-shake">
-                <FaExclamationCircle className="text-xl" />
+                <FaExclamationCircle className="text-xl flex-shrink-0" />
                 <span>{error}</span>
+              </div>
+            )}
+
+            {success && (
+              <div className="bg-green-500/10 border border-green-500/50 rounded-2xl p-4 text-green-400 text-sm flex items-center gap-3">
+                <FaSignInAlt className="text-xl flex-shrink-0" />
+                <span>{success}</span>
               </div>
             )}
 
@@ -187,5 +208,13 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-black flex items-center justify-center text-white">Yükleniyor...</div>}>
+      <LoginForm />
+    </Suspense>
   );
 }

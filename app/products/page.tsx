@@ -19,8 +19,10 @@ export default function ProductsPage() {
 
   useEffect(() => {
     const allProducts = getProducts();
-    setProducts(allProducts);
-    setFilteredProducts(allProducts);
+    // Yayındaki olanları filtrele: statüsü 'active' olanlar veya statüsü hiç olmayanlar (admin ürünleri)
+    const activeProducts = allProducts.filter(p => !p.status || p.status === 'active');
+    setProducts(activeProducts);
+    setFilteredProducts(activeProducts);
   }, []);
 
   useEffect(() => {
@@ -78,11 +80,6 @@ export default function ProductsPage() {
             </Link>
             <div className="flex items-center gap-4">
               <SettingsMenu />
-              <Link href="/admin/login">
-                <AnimatedButton className="px-4 py-2 text-sm">
-                  Admin
-                </AnimatedButton>
-              </Link>
             </div>
           </div>
         </div>

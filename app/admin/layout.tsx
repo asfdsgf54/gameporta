@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { FaHome, FaBox, FaPlus, FaChartBar, FaSignOutAlt, FaUser } from 'react-icons/fa';
+import { FaHome, FaBox, FaPlus, FaChartBar, FaSignOutAlt, FaUser, FaHeadset, FaBell, FaUsers, FaRobot, FaWallet } from 'react-icons/fa';
 import { isAdminAuthenticated, getAdminUser, adminLogout } from '@/lib/auth';
 import AnimatedButton from '@/components/AnimatedButton';
 
@@ -90,6 +90,66 @@ export default function AdminLayout({
             >
               <FaBox className="group-hover:scale-110 transition-transform" />
               <span className="font-medium">Ürünler</span>
+            </Link>
+
+            <Link 
+              href="/admin/notifications"
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all group ${
+                isActive('/admin/notifications')
+                  ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30' 
+                  : 'text-gray-400 hover:bg-zinc-800/50 hover:text-white'
+              }`}
+            >
+              <FaBell className="group-hover:scale-110 transition-transform" />
+              <span className="font-medium">Bildirimler</span>
+            </Link>
+
+            <Link 
+              href="/admin/support"
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all group ${
+                isActive('/admin/support')
+                  ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30' 
+                  : 'text-gray-400 hover:bg-zinc-800/50 hover:text-white'
+              }`}
+            >
+              <FaHeadset className="group-hover:scale-110 transition-transform" />
+              <span className="font-medium">Canlı Destek</span>
+            </Link>
+
+            <Link 
+              href="/admin/users"
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all group ${
+                isActive('/admin/users')
+                  ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30' 
+                  : 'text-gray-400 hover:bg-zinc-800/50 hover:text-white'
+              }`}
+            >
+              <FaUsers className="group-hover:scale-110 transition-transform" />
+              <span className="font-medium">Kullanıcılar</span>
+            </Link>
+
+            <Link 
+              href="/admin/automation"
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all group ${
+                isActive('/admin/automation')
+                  ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30' 
+                  : 'text-gray-400 hover:bg-zinc-800/50 hover:text-white'
+              }`}
+            >
+              <FaRobot className="group-hover:scale-110 transition-transform" />
+              <span className="font-medium">Otomasyon</span>
+            </Link>
+
+            <Link 
+              href="/admin/balance"
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all group ${
+                isActive('/admin/balance')
+                  ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30' 
+                  : 'text-gray-400 hover:bg-zinc-800/50 hover:text-white'
+              }`}
+            >
+              <FaWallet className="group-hover:scale-110 transition-transform" />
+              <span className="font-medium">Bakiye</span>
             </Link>
             
             <div className="pt-4">

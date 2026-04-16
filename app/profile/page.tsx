@@ -56,11 +56,11 @@ export default function ProfilePage() {
     }
   };
 
-  const handleSaveImage = () => {
+  const handleSaveImage = async () => {
     setError('');
     setSuccess('');
 
-    const result = updateUserProfile(user.id, { profileImage: selectedImage });
+    const result = await updateUserProfile(user.id, { profileImage: selectedImage });
     if (result.success) {
       setSuccess('Profil fotoğrafı güncellendi!');
       setUser(getCurrentUser());
@@ -73,12 +73,12 @@ export default function ProfilePage() {
     }
   };
 
-  const handleEditProfile = (e: React.FormEvent) => {
+  const handleEditProfile = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setSuccess('');
 
-    const result = updateUserProfile(user.id, editForm);
+    const result = await updateUserProfile(user.id, editForm);
     if (result.success) {
       setSuccess(result.message);
       setUser(getCurrentUser());
@@ -91,7 +91,7 @@ export default function ProfilePage() {
     }
   };
 
-  const handleChangePassword = (e: React.FormEvent) => {
+  const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setSuccess('');
@@ -101,7 +101,7 @@ export default function ProfilePage() {
       return;
     }
 
-    const result = changePassword(user.id, passwordForm.currentPassword, passwordForm.newPassword);
+    const result = await changePassword(user.id, passwordForm.currentPassword, passwordForm.newPassword);
     if (result.success) {
       setSuccess(result.message);
       setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });

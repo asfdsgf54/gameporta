@@ -1,13 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import { motion, useAnimation, Variants } from 'framer-motion';
 import {
   UserCircle,
   Bell,
   LogOut,
   Settings,
   Package,
+  Headset,
+  PlusCircle,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { userLogout } from '@/lib/auth';
@@ -22,8 +24,10 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
   { icon: UserCircle, name: 'Profil', href: '/profile' },
-  { icon: Package, name: 'İlanlarım', href: '/my-listings' },
+  { icon: PlusCircle, name: 'İlan Ver', href: '/sell', customStyle: '!text-blue-400 font-bold' },
+  { icon: Package, name: 'İlanlarım', href: '/profile/ads' },
   { icon: Bell, name: 'Bildirimler', href: '/notifications' },
+  { icon: Headset, name: 'Canlı Destek', href: '/support' },
   {
     icon: LogOut,
     name: 'Çıkış Yap',
@@ -34,7 +38,7 @@ const menuItems: MenuItem[] = [
 ];
 
 // Animation variants
-const listVariants = {
+const listVariants: Variants = {
   visible: {
     clipPath: 'inset(0% 0% 0% 0% round 12px)',
     transition: {
@@ -53,7 +57,7 @@ const listVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   visible: (i: number) => ({
     opacity: 1,
     scale: 1,

@@ -43,6 +43,7 @@ export default function EditProduct() {
     images: [],
     stock: '1',
     featured: false,
+    digitalStock: '',
   });
 
   const [imageUrl, setImageUrl] = useState('');
@@ -65,6 +66,7 @@ export default function EditProduct() {
         images: product.images,
         stock: product.stock.toString(),
         featured: product.featured,
+        digitalStock: product.digitalStock ? product.digitalStock.join('\n') : '',
       });
     } else {
       router.push('/admin/products');
@@ -85,8 +87,9 @@ export default function EditProduct() {
       description: formData.description,
       features: formData.features.split('\n').filter(f => f.trim()),
       images: formData.images,
-      stock: parseInt(formData.stock),
+      stock: formData.digitalStock ? formData.digitalStock.split('\n').filter(s => s.trim()).length : parseInt(formData.stock),
       featured: formData.featured,
+      digitalStock: formData.digitalStock ? formData.digitalStock.split('\n').filter(s => s.trim()) : undefined,
       createdAt: getProductById(productId)?.createdAt || new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
@@ -278,6 +281,28 @@ export default function EditProduct() {
               placeholder="50.000 Blue Essence&#10;150+ Champion&#10;Tüm Runlar Açık&#10;Email Değiştirilebilir"
             />
             <p className="text-sm text-gray-500 mt-2">Her satıra bir özellik yazın</p>
+          </div>
+
+          <div className="pt-4 border-t border-zinc-800">
+            <label className="block text-sm font-medium mb-2 text-blue-400">Dijital Stok Ürünleri (Her satıra bir hesap/kod)</label>
+            <textarea
+              rows={8}
+              value={formData.digitalStock}
+              onChange={(e) => {
+                const lines = e.target.value.split('\n').filter(s => s.trim()).length;
+                setFormData({ 
+                  ...formData, 
+                  digitalStock: e.target.value,
+                  stock: lines.toString()
+                });
+              }}
+              className="w-full bg-zinc-800 border border-blue-500/30 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-500 font-mono text-sm"
+              placeholder="user1:pass1&#10;user2:pass2&#10;STEAM_KEY_XYZ..."
+            />
+            <p className="text-sm text-gray-500 mt-2">
+              ⚠️ Buraya her satıra bir adet gelecek şekilde hesap bilgilerini girin. 
+              Girdiğiniz satır sayısı otomatik olarak **Stok Adedi** olarak ayarlanacaktır.
+            </p>
           </div>
         </div>
 

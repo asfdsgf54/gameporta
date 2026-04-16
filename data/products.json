@@ -1,0 +1,244 @@
+{
+  "products": [
+    {
+      "id": "test-001",
+      "name": "🧪 Test Ürünü — Otomasyon",
+      "game": "Test",
+      "category": "Test",
+      "price": 10,
+      "description": "Bu ürün otomasyon sistemini test etmek için oluşturulmuştur.",
+      "features": [
+        "Otomasyon Testi",
+        "Anlık Sipariş",
+        "Bildirim Sistemi"
+      ],
+      "images": [],
+      "stock": 94,
+      "featured": false,
+      "createdAt": "2026-04-13T16:49:07.173Z",
+      "updatedAt": "2026-04-14T09:35:15.574Z"
+    },
+    {
+      "id": "1",
+      "name": "League of Legends Platin Hesap",
+      "game": "League of Legends",
+      "category": "Hesap",
+      "price": 299.99,
+      "description": "Platin 2 seviyesinde, 50+ champion, 20+ skin içeren hesap. Tüm şampiyonlar açık, email değiştirilebilir.",
+      "features": [
+        "Platin 2 Rank",
+        "50+ Champion",
+        "20+ Skin",
+        "Email Değiştirilebilir",
+        "Full Access"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500",
+        "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=500"
+      ],
+      "stock": 5,
+      "featured": true,
+      "createdAt": "2024-01-10T10:00:00.000Z",
+      "updatedAt": "2024-04-10T10:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "Valorant Elmas Hesap",
+      "game": "Valorant",
+      "category": "Hesap",
+      "price": 450,
+      "description": "Elmas 1 rank, tüm agentlar açık, premium skinler mevcut. Güvenli teslimat garantisi.",
+      "features": [
+        "Elmas 1 Rank",
+        "Tüm Agentlar",
+        "Premium Skinler",
+        "Güvenli Teslimat",
+        "Email Değiştirilebilir"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=500",
+        "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=500"
+      ],
+      "stock": 3,
+      "featured": true,
+      "createdAt": "2024-01-15T11:30:00.000Z",
+      "updatedAt": "2024-04-15T11:30:00.000Z"
+    },
+    {
+      "id": "3",
+      "name": "CS:GO Prime Hesap",
+      "game": "CS:GO",
+      "category": "Hesap",
+      "price": 150,
+      "description": "Prime status aktif, 2000+ saat oynanmış, güvenilir hesap. Competitive ready.",
+      "features": [
+        "Prime Status",
+        "2000+ Saat",
+        "Competitive Ready",
+        "Temiz Geçmiş",
+        "Steam Guard"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?w=500"
+      ],
+      "stock": 8,
+      "featured": false,
+      "createdAt": "2024-02-01T09:00:00.000Z",
+      "updatedAt": "2024-04-20T09:00:00.000Z"
+    },
+    {
+      "id": "4",
+      "name": "Genshin Impact 5 Yıldız Karakter",
+      "game": "Genshin Impact",
+      "category": "Hesap",
+      "price": 380,
+      "description": "3x 5 yıldız karakter, AR 45+, zengin envanter. Güvenli hesap transferi.",
+      "features": [
+        "3x 5★ Karakter",
+        "AR 45+",
+        "Zengin Envanter",
+        "Primogem Bonus",
+        "Güvenli Transfer"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500"
+      ],
+      "stock": 4,
+      "featured": true,
+      "createdAt": "2024-02-10T14:20:00.000Z",
+      "updatedAt": "2024-04-22T14:20:00.000Z"
+    },
+    {
+      "id": "5",
+      "name": "Lost Ark Gold - 100K",
+      "game": "Lost Ark",
+      "category": "Gold",
+      "price": 85,
+      "description": "100.000 Gold, hızlı ve güvenli teslimat. 7/24 destek.",
+      "features": [
+        "100K Gold",
+        "Hızlı Teslimat",
+        "Güvenli İşlem",
+        "7/24 Destek",
+        "Bonus Gold"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=500"
+      ],
+      "stock": 50,
+      "featured": false,
+      "createdAt": "2024-02-15T16:00:00.000Z",
+      "updatedAt": "2024-04-25T16:00:00.000Z"
+    },
+    {
+      "id": "6",
+      "name": "WoW Classic Gold - 5000G",
+      "game": "WoW",
+      "category": "Gold",
+      "price": 120,
+      "description": "5000 Gold, tüm serverlara teslimat. Güvenli ve hızlı.",
+      "features": [
+        "5000 Gold",
+        "Tüm Serverlar",
+        "15 Dakika Teslimat",
+        "Güvenli",
+        "Bonus Hediye"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500"
+      ],
+      "stock": 30,
+      "featured": false,
+      "createdAt": "2024-02-20T10:30:00.000Z",
+      "updatedAt": "2024-04-26T10:30:00.000Z"
+    },
+    {
+      "id": "7",
+      "name": "Fortnite Rare Skin Hesap",
+      "game": "Fortnite",
+      "category": "Hesap",
+      "price": 280,
+      "description": "Nadir skinler, 100+ skin, battle pass geçmişi. Full access.",
+      "features": [
+        "100+ Skin",
+        "Rare Skinler",
+        "Battle Pass",
+        "V-Bucks Bonus",
+        "Full Access"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1589241062272-c0a000072dfa?w=500"
+      ],
+      "stock": 6,
+      "featured": true,
+      "createdAt": "2024-03-01T12:00:00.000Z",
+      "updatedAt": "2024-04-27T12:00:00.000Z"
+    },
+    {
+      "id": "8",
+      "name": "Apex Legends Predator Hesap",
+      "game": "Apex Legends",
+      "category": "Hesap",
+      "price": 520,
+      "description": "Predator rank, tüm legendler açık, heirloom mevcut.",
+      "features": [
+        "Predator Rank",
+        "Tüm Legendler",
+        "Heirloom",
+        "Premium Skinler",
+        "Email Değiştirilebilir"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=500"
+      ],
+      "stock": 2,
+      "featured": true,
+      "createdAt": "2024-03-05T15:30:00.000Z",
+      "updatedAt": "2024-04-28T15:30:00.000Z"
+    },
+    {
+      "id": "9",
+      "name": "PUBG UC - 3000 UC",
+      "game": "PUBG",
+      "category": "UC",
+      "price": 95,
+      "description": "3000 UC, anında teslimat. Tüm platformlar için geçerli.",
+      "features": [
+        "3000 UC",
+        "Anında Teslimat",
+        "Tüm Platformlar",
+        "Güvenli",
+        "Bonus UC"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500"
+      ],
+      "stock": 100,
+      "featured": false,
+      "createdAt": "2024-03-10T09:00:00.000Z",
+      "updatedAt": "2024-04-29T09:00:00.000Z"
+    },
+    {
+      "id": "10",
+      "name": "Dota 2 Arcana Set",
+      "game": "Dota 2",
+      "category": "Item",
+      "price": 180,
+      "description": "Nadir arcana setleri, marketable itemler. Güvenli trade.",
+      "features": [
+        "Arcana Set",
+        "Marketable",
+        "Rare Items",
+        "Güvenli Trade",
+        "Bonus Item"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=500"
+      ],
+      "stock": 7,
+      "featured": false,
+      "createdAt": "2024-03-15T11:45:00.000Z",
+      "updatedAt": "2024-04-30T11:45:00.000Z"
+    }
+  ]
+}

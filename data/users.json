@@ -1,0 +1,47 @@
+{
+  "users": [
+    {
+      "id": "1776084055949",
+      "username": "furkancan295",
+      "email": "aresmitsu@gmail.com",
+      "password": "Yusuf.324Q",
+      "createdAt": "2026-04-13T12:40:55.949Z",
+      "totalOrders": 4,
+      "totalSpent": 40,
+      "balance": 160
+    },
+    {
+      "id": "1776100651868",
+      "username": "yısıfg",
+      "email": "yusuf.39067@gmail.com",
+      "password": "Yusuf.324Q",
+      "createdAt": "2026-04-13T17:17:31.868Z",
+      "totalOrders": 0,
+      "totalSpent": 0,
+      "balance": 0
+    },
+    {
+      "id": "1776156687363",
+      "username": "ares",
+      "email": "darkprens.324@gmail.com",
+      "password": "Yusuf.324Q",
+      "createdAt": "2026-04-14T08:51:27.363Z",
+      "totalOrders": 1,
+      "totalSpent": 10,
+      "isVerified": true,
+      "balance": 490
+    },
+    {
+      "id": "1776156924956",
+      "username": "ares1",
+      "email": "aresmitsu23@gmail.com",
+      "password": "Yusuf.324Q",
+      "createdAt": "2026-04-14T08:55:24.956Z",
+      "totalOrders": 0,
+      "totalSpent": 0,
+      "isVerified": false,
+      "verificationToken": "5oiyzrobuiqjpnintcvbe",
+      "balance": 0
+    }
+  ]
+}

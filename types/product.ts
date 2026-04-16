@@ -11,6 +11,12 @@ export interface Product {
   featured: boolean;
   createdAt: string;
   updatedAt: string;
+  digitalStock?: string[];
+  sellerId?: string; // Boşsa sistemindir
+  sellerName?: string;
+  isUserListing?: boolean;
+  status?: 'active' | 'sold' | 'expired' | 'pending';
+  expiryDate?: string;
 }
 
 export interface ProductFormData {
@@ -23,4 +29,6 @@ export interface ProductFormData {
   images: string[];
   stock: string;
   featured: boolean;
+  digitalStock?: string;
+  status?: 'active' | 'sold' | 'expired' | 'pending';
 }

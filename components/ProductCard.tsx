@@ -54,11 +54,18 @@ export default function ProductCard({ product }: ProductCardProps) {
             )}
             
             {/* Badges */}
-            {product.featured && (
-              <div className="absolute top-3 right-3 px-3 py-1 bg-yellow-500 rounded-full flex items-center gap-1 text-xs font-bold">
-                <FaStar /> Öne Çıkan
-              </div>
-            )}
+            <div className="absolute top-3 right-3 flex flex-col gap-2 items-end">
+              {product.featured && (
+                <div className="px-3 py-1 bg-yellow-500 rounded-full flex items-center gap-1 text-[10px] font-bold text-black uppercase tracking-tighter">
+                  <FaStar /> Öne Çıkan
+                </div>
+              )}
+              {product.isUserListing && (
+                <div className="px-3 py-1 bg-blue-500/80 backdrop-blur-md rounded-full flex items-center gap-1 text-[10px] font-bold text-white uppercase tracking-tighter border border-blue-400/50">
+                   Kullanıcı İlanı
+                </div>
+              )}
+            </div>
             {product.stock === 0 && (
               <div className="absolute inset-0 bg-black/70 flex items-center justify-center">
                 <span className="text-xl font-bold text-red-400">Tükendi</span>

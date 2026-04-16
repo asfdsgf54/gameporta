@@ -43,7 +43,7 @@ export const getRegisteredUsers = (): User[] => {
   return users ? JSON.parse(users) : [];
 };
 
-export const registerUser = (data: RegisterData): { success: boolean; message: string } => {
+export const registerUser = async (data: RegisterData): Promise<{ success: boolean; message: string }> => {
   if (typeof window === 'undefined') {
     return { success: false, message: 'Sunucu tarafında kayıt yapılamaz' };
   }
@@ -72,12 +72,48 @@ export const registerUser = (data: RegisterData): { success: boolean; message: s
     email: data.email,
     password: data.password, // Gerçek uygulamada hash'lenmeli
     createdAt: new Date().toISOString(),
+    totalOrders: 0,
+    totalSpent: 0,
+    isVerified: false,
+    verificationToken: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
   };
 
   users.push(newUser);
   localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
 
-  return { success: true, message: 'Kayıt başarılı!' };
+  // Doğrulama maili gönder
+  try {
+    const siteUrl = window.location.origin;
+    const verificationLink = `${siteUrl}/api/auth/verify?token=${newUser.verificationToken}&email=${newUser.email}`;
+
+    await fetch('/api/mail', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'verify',
+        to: newUser.email,
+        data: { 
+          username: newUser.username,
+          link: verificationLink 
+        },
+      }),
+    });
+  } catch (error) {
+    console.error('Doğrulama maili gönderilemedi:', error);
+  }
+
+  // JSON dosyasına da kaydet (API üzerinden)
+  try {
+    await fetch('/api/users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newUser),
+    });
+  } catch (error) {
+    console.log('JSON dosyasına yazılamadı, sadece localStorage\'da');
+  }
+
+  return { success: true, message: 'Kayıt başarılı! Lütfen hesabınızı onaylamak için e-posta adresinizi kontrol edin.' };
 };
 
 export const userLogin = (username: string, password: string): { success: boolean; message: string; user?: User; isAdmin?: boolean } => {
@@ -90,7 +126,6 @@ export const userLogin = (username: string, password: string): { success: boolea
     localStorage.setItem('adminAuth', 'true');
     localStorage.setItem('adminUser', username);
     document.cookie = `adminAuth=true; path=/; max-age=86400; SameSite=Lax`;
-    
     return { success: true, message: 'Admin girişi başarılı!', isAdmin: true };
   }
 
@@ -99,10 +134,15 @@ export const userLogin = (username: string, password: string): { success: boolea
   const user = users.find(u => u.username === username && u.password === password);
 
   if (user) {
+    if (!user.isVerified) {
+      return { success: false, message: 'Lütfen önce e-posta adresinizi doğrulayın!' };
+    }
+
     localStorage.setItem('userAuth', 'true');
     localStorage.setItem('currentUser', JSON.stringify(user));
     document.cookie = `userAuth=true; path=/; max-age=86400; SameSite=Lax`;
-    
+    // Son giriş zamanını kaydet
+    localStorage.setItem(`lastLogin_${user.id}`, new Date().toISOString());
     return { success: true, message: 'Giriş başarılı!', user, isAdmin: false };
   }
 
@@ -128,7 +168,7 @@ export const userLogout = (): void => {
 
 // Profile update functions
 
-export const updateUserProfile = (userId: string, updates: Partial<User>): { success: boolean; message: string } => {
+export const updateUserProfile = async (userId: string, updates: Partial<User>): Promise<{ success: boolean; message: string }> => {
   if (typeof window === 'undefined') {
     return { success: false, message: 'Sunucu tarafında güncelleme yapılamaz' };
   }
@@ -160,6 +200,17 @@ export const updateUserProfile = (userId: string, updates: Partial<User>): { suc
   users[userIndex] = { ...users[userIndex], ...updates };
   localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
 
+  // JSON dosyasına da kaydet
+  try {
+    await fetch('/api/users', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ users }),
+    });
+  } catch (error) {
+    console.log('JSON dosyasına yazılamadı');
+  }
+
   // Mevcut kullanıcı bilgisini güncelle
   const currentUser = getCurrentUser();
   if (currentUser && currentUser.id === userId) {
@@ -169,7 +220,7 @@ export const updateUserProfile = (userId: string, updates: Partial<User>): { suc
   return { success: true, message: 'Profil başarıyla güncellendi!' };
 };
 
-export const changePassword = (userId: string, currentPassword: string, newPassword: string): { success: boolean; message: string } => {
+export const changePassword = async (userId: string, currentPassword: string, newPassword: string): Promise<{ success: boolean; message: string }> => {
   if (typeof window === 'undefined') {
     return { success: false, message: 'Sunucu tarafında işlem yapılamaz' };
   }
@@ -195,6 +246,17 @@ export const changePassword = (userId: string, currentPassword: string, newPassw
   user.password = newPassword;
   localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
 
+  // JSON dosyasına da kaydet
+  try {
+    await fetch('/api/users', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ users }),
+    });
+  } catch (error) {
+    console.log('JSON dosyasına yazılamadı');
+  }
+
   // Mevcut kullanıcı bilgisini güncelle
   const currentUser = getCurrentUser();
   if (currentUser && currentUser.id === userId) {
@@ -202,4 +264,37 @@ export const changePassword = (userId: string, currentPassword: string, newPassw
   }
 
   return { success: true, message: 'Şifre başarıyla değiştirildi!' };
+};
+
+export const updateUserBalance = async (userId: string, amount: number): Promise<{ success: boolean }> => {
+  if (typeof window === 'undefined') return { success: false };
+
+  const users = getRegisteredUsers();
+  const userIndex = users.findIndex(u => u.id === userId);
+
+  if (userIndex === -1) return { success: false };
+
+  const currentBalance = users[userIndex].balance || 0;
+  users[userIndex].balance = Number((currentBalance + amount).toFixed(2));
+  
+  localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
+
+  // JSON dosyasına da kaydet
+  try {
+    await fetch('/api/users', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ users }),
+    });
+  } catch (error) {
+    console.log('JSON dosyasına balance yazılamadı');
+  }
+
+  // Mevcut kullanıcı bilgisini güncelle (eğer giriş yapan kişi ise)
+  const currentUser = getCurrentUser();
+  if (currentUser && currentUser.id === userId) {
+    localStorage.setItem('currentUser', JSON.stringify(users[userIndex]));
+  }
+
+  return { success: true };
 };

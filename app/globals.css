@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 body {
-  @apply bg-black;
+  background: transparent;
   min-height: 100vh;
+}
+
+html {
+  background-color: #000;
 }
 
 .glow {

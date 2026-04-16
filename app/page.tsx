@@ -20,11 +20,7 @@ import {
   FaBell,
   FaSignOutAlt
 } from 'react-icons/fa';
-import { 
-  SiLeagueoflegends, 
-  SiValorant, 
-  SiApex 
-} from 'react-icons/si';
+
 import { 
   GiCrossedSwords, 
   GiTwoCoins,

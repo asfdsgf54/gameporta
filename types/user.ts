@@ -5,6 +5,13 @@ export interface User {
   password: string;
   createdAt: string;
   profileImage?: string;
+  phone?: string;
+  address?: string;
+  totalOrders?: number;
+  totalSpent?: number;
+  balance?: number; // Bakiye
+  isVerified: boolean;
+  verificationToken?: string;
 }
 
 export interface RegisterData {
