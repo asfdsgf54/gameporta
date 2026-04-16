@@ -1,5 +1,4 @@
 [build]
-  base = "gameporta"
   publish = ".next"
   command = "npm run build"
 
